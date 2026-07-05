@@ -3,34 +3,92 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>B9IS121 - Automated Container Deployment</title>
+  <title>B9IS121 — Automated Container Deployment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>B9IS121 — Automated Container Deployment</h1>
-    <h1>Name:Khawaja Abdul Moiz</h1>
-    <h1>ID: 20089410</h1>
 
-    <p class="subtitle">Deployed with Terraform, Ansible, Docker and GitHub Actions</p>
+  <div class="scanlines" aria-hidden="true"></div>
 
-    <ul class="stack">
-      <li><strong>Infrastructure:</strong> Terraform → AWS EC2</li>
-      <li><strong>Configuration:</strong> Ansible → installs and starts Docker</li>
-      <li><strong>Application:</strong> this static HTML/CSS page, served by Nginx in a container</li>
-      <li><strong>CI/CD:</strong> GitHub Actions → build, push, deploy on every commit</li>
-    </ul>
+  <main class="console">
 
-    <p class="status">Group Members</p>
-    <p class="status">Hammad Malik</p>
-    <p class="status">Muhammad Arshman Noor</p>
+    <div class="titlebar">
+      <span class="dot dot-a"></span>
+      <span class="dot dot-b"></span>
+      <span class="dot dot-c"></span>
+      <span class="titlebar-label">ops@b9is121 — deployment-console</span>
+    </div>
 
-    <p class="timestamp" id="timestamp"></p>
+    <div class="screen">
+
+      <header class="masthead">
+        <p class="eyebrow">B9IS121 · Network Systems and Administration</p>
+        <h1 class="title">Automated Container<br>Deployment &amp; Administration<span class="cursor">_</span></h1>
+        <p class="subtitle">Provisioned with Terraform, configured with Ansible, containerised with Docker, shipped with GitHub Actions.</p>
+      </header>
+
+      <section class="pipeline" aria-label="Deployment pipeline log">
+        <p class="section-label">// pipeline log</p>
+        <ol class="log">
+          <li class="log-line" style="--d:0.1s">
+            <span class="tag tag-tf">terraform</span>
+            <span class="msg">apply — aws_instance.web, security_group.web_sg <em>created</em></span>
+            <span class="ok">done</span>
+          </li>
+          <li class="log-line" style="--d:0.6s">
+            <span class="tag tag-an">ansible</span>
+            <span class="msg">playbook.yml — install docker, enable on boot</span>
+            <span class="ok">done</span>
+          </li>
+          <li class="log-line" style="--d:1.1s">
+            <span class="tag tag-dk">docker</span>
+            <span class="msg">build &amp; run — nginx:web serving static app on :80</span>
+            <span class="ok">done</span>
+          </li>
+          <li class="log-line" style="--d:1.6s">
+            <span class="tag tag-gh">github actions</span>
+            <span class="msg">ci/cd — build → push → deploy on every commit to main</span>
+            <span class="ok">done</span>
+          </li>
+        </ol>
+        <p class="status-line" style="--d:2.1s">
+          <span class="status-dot"></span> deployment successful — 4/4 stages green
+        </p>
+      </section>
+
+      <section class="crew" aria-label="Group members">
+        <p class="section-label">// crew manifest</p>
+        <ul class="roster">
+          <li class="operator">
+            <span class="op-role">lead</span>
+            <span class="op-name">Khawaja Abdul Moiz</span>
+            <span class="op-id">20089410</span>
+          </li>
+          <li class="operator">
+            <span class="op-role">operator</span>
+            <span class="op-name">Hammad Malik</span>
+            <span class="op-id">20073974</span>
+          </li>
+          <li class="operator">
+            <span class="op-role">operator</span>
+            <span class="op-name">Muhammad Arshman Noor</span>
+            <span class="op-id">20096163</span>
+          </li>
+        </ul>
+      </section>
+
+      <footer class="foot">
+        <p class="timestamp" id="timestamp"></p>
+      </footer>
+
+    </div>
   </main>
 
   <script>
     document.getElementById("timestamp").textContent =
-      "Page loaded: " + new Date().toLocaleString();
+      "page rendered " + new Date().toLocaleString();
   </script>
 </body>
 </html>
