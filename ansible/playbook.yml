@@ -1,0 +1,77 @@
+---
+- name: Configure Docker host and deploy the containerised Flask app
+  hosts: app_servers
+  become: true
+
+  vars:
+    app_image: "REPLACE_WITH_DOCKERHUB_USERNAME/b9is121-static-site:latest"
+    app_container_name: b9is121-app
+    app_port: 80
+
+  tasks:
+    - name: Update apt package cache
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install prerequisite packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+
+    - name: Add Docker's official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add the Docker apt repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+
+    - name: Install Docker Engine and CLI
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+        update_cache: true
+
+    - name: Ensure Docker service is enabled and started (survives reboot)
+      systemd:
+        name: docker
+        enabled: true
+        state: started
+
+    - name: Add the ubuntu user to the docker group
+      user:
+        name: ubuntu
+        groups: docker
+        append: true
+
+    - name: Pull the latest application image from Docker Hub
+      community.docker.docker_image:
+        name: "{{ app_image }}"
+        source: pull
+        force_source: true
+
+    - name: Remove any previous container with the same name
+      community.docker.docker_container:
+        name: "{{ app_container_name }}"
+        state: absent
+      ignore_errors: true
+
+    - name: Run the application container
+      community.docker.docker_container:
+        name: "{{ app_container_name }}"
+        image: "{{ app_image }}"
+        state: started
+        restart_policy: always
+        ports:
+          - "{{ app_port }}:80"

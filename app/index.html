@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B9IS121 - Automated Container Deployment</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>B9IS121 — Automated Container Deployment</h1>
+    <p class="subtitle">Deployed with Terraform, Ansible, Docker and GitHub Actions</p>
+
+    <ul class="stack">
+      <li><strong>Infrastructure:</strong> Terraform → AWS EC2</li>
+      <li><strong>Configuration:</strong> Ansible → installs and starts Docker</li>
+      <li><strong>Application:</strong> this static HTML/CSS page, served by Nginx in a container</li>
+      <li><strong>CI/CD:</strong> GitHub Actions → build, push, deploy on every commit</li>
+    </ul>
+
+    <p class="status">✅ If you can see this page, the deployment pipeline worked.</p>
+    <p class="timestamp" id="timestamp"></p>
+  </main>
+
+  <script>
+    document.getElementById("timestamp").textContent =
+      "Page loaded: " + new Date().toLocaleString();
+  </script>
+</body>
+</html>
