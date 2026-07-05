@@ -1,10 +1,10 @@
 ---
-- name: Configure Docker host and deploy the containerised Flask app
+- name: Configure Docker host and deploy the containerised static HTML/CSS site
   hosts: app_servers
   become: true
 
   vars:
-    app_image: "REPLACE_WITH_DOCKERHUB_USERNAME/b9is121-static-site:latest"
+    app_image: "khawajaabdulmoiz/b9is121-static-site:latest"
     app_container_name: b9is121-app
     app_port: 80
 
