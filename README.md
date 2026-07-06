@@ -1,6 +1,6 @@
-# B9IS121 CA2 — Automated Container Deployment and Administration in the Cloud
+# B9IS121 CA2 — Automated Deployment Of Container and Cloud Administration
 
-This repository automates the deployment of a Dockerised static HTML/CSS site (served by Nginx) to an AWS EC2 instance, using Terraform for infrastructure and Ansible for configuration management, with a GitHub Actions pipeline that rebuilds and redeploys automatically on every push to `main`.
+This repository automates the deployment of a static HTML/CSS site (served by Nginx and Docker) on an AWS EC2 instance. It uses Terraform for infrastructure and Ansible for configuration management. It also uses a GitHub Actions pipeline that rebuilds and redeploys automatically on every push to `main`.
 
 ## Repository structure
 
@@ -28,7 +28,7 @@ This repository automates the deployment of a Dockerised static HTML/CSS site (s
 
 ## Automation flow, step by step
 
-1. **Terraform (`terraform/`)** provisions the cloud infrastructure: it looks up the default AWS VPC and subnet, finds the latest Ubuntu 22.04 AMI automatically, creates a security group allowing SSH only from the developer's IP plus HTTP on port 80, and launches a `t2.micro` EC2 instance in `eu-west-1`. Running `terraform apply` is a one-off, manual step — infrastructure doesn't change on every code push, only the application does.
+1. **Terraform (`terraform/`)** used for cloud infrastructure: it looks up the default AWS VPC and subnet. Then it finds the latest Ubuntu 22.04 AMI automatically. It creates a security group allowing SSH only from the developer's IP and HTTP on port 80, and then launches a `t2.micro` EC2 instance in `eu-west-1`. Running `terraform apply` is a one-off, manual step — infrastructure doesn't change on every code push, only the application does.
 
 2. **Ansible (`ansible/playbook.yml`)** configures that server: it updates the package cache, installs Docker Engine and its dependencies, enables the Docker service so it survives a reboot, adds the `ubuntu` user to the `docker` group, then pulls the latest application image from Docker Hub and starts it as a container, replacing any previous container of the same name. Every task is idempotent — running the playbook again causes no harm, it just confirms the desired state.
 
